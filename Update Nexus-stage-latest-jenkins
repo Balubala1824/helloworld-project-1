@@ -12,7 +12,7 @@ environment {
       NEXUS_URL = "34.16.142.180:8081"
       NEXUS_REPOSITORY = "release"
       NEXUS_CREDENTIAL_ID = "nexus-cred"
-      NEXUS_RELEASE = "2.0.0"
+      NEXUS_RELEASE = "3.36.0-01"
     }
 
  tools {
@@ -29,12 +29,7 @@ stages{
        }
     }
 
-   stage('Maven build'){
-       steps{
-           sh 'mvn clean install'
-
-       }
-     }
+   
    stage ('Sonarqube Analysis'){
            steps {
            withSonarQubeEnv('sonarqube') {
