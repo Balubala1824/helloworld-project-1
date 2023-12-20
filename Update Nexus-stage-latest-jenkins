@@ -4,15 +4,15 @@ agent any
 
 environment {
 
-      sonar_url = 'http://34.125.225.88:9000'
+      sonar_url = 'http://10.182.0.5:9000'
       sonar_username = 'admin'
       sonar_password = 'admin'
       NEXUS_VERSION = "nexus3"
       NEXUS_PROTOCOL = "http"
-      NEXUS_URL = "34.16.142.180:8081"
-      NEXUS_REPOSITORY = "release"
+      NEXUS_URL = "10.182.0.5:8081"
+      NEXUS_REPOSITORY = "nexus"
       NEXUS_CREDENTIAL_ID = "nexus-cred"
-      NEXUS_RELEASE = "3.36.0-01"
+      NEXUS_RELEASE = "2.0.0"
     }
 
  tools {
