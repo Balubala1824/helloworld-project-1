@@ -10,7 +10,7 @@ environment {
       NEXUS_VERSION = "nexus3"
       NEXUS_PROTOCOL = "http"
       NEXUS_URL = "10.182.0.5:8081"
-      NEXUS_REPOSITORY = "nexus"
+      NEXUS_REPOSITORY = "release"
       NEXUS_CREDENTIAL_ID = "nexus-cred"
       NEXUS_RELEASE = "2.0.0"
     }
