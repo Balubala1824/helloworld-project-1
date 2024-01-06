@@ -8,11 +8,16 @@ pipeline {
   
   environment {
 
-      sonar_url = 'http://10.128.0.5:9000'
+      sonar_url = 'http://10.182.0.5:9000'
       sonar_username = 'admin'
       sonar_password = 'admin'
-      nexus_url = '10.128.0.4:8081'
-      artifact_version = '1.0.0'
+      NEXUS_VERSION = "nexus3"
+      NEXUS_PROTOCOL = "http"
+      NEXUS_URL = "10.182.0.6:8081"
+      NEXUS_REPOSITORY = "nexus"
+      NEXUS_CREDENTIAL_ID = "nexus-cred"
+      NEXUS_RELEASE = "2.0.0"
+      artifact_version = "4.0.0"
 
  }
  parameters {
@@ -23,7 +28,7 @@ stages {
     stage('Git checkout'){
       steps {
         git branch: '${Branch}',
-        url: 'https://github.com/chinni4321/helloworld-project-1.git'
+        url: 'https://github.com/Balubala1824/helloworld-project-1.git'
       }
     }
     stage('Maven build'){
@@ -42,28 +47,28 @@ stages {
       } 
        stage ('Publish Artifact') {
         steps {
-          nexusArtifactUploader artifacts: [[artifactId: 'hello-world-war', classifier: '', file: "target/hello-world-war-1.0.0.war", type: 'war']], credentialsId: 'nexus-cred', groupId: 'com.efsavage', nexusUrl: "${nexus_url}", nexusVersion: 'nexus3', protocol: 'http', repository: 'release', version: "${artifact_version}"
+          nexusArtifactUploader artifacts: [[artifactId: 'hello-world-war', classifier: '', file: "target/hello-world-war-1.0.0.war", type: 'war']], credentialsId: 'nexus-cred', groupId: 'com.efsavage', nexusUrl: "${nexus_url}", nexusVersion: 'nexus3', protocol: 'http', repository: 'nexus', version: "${artifact_version}"
         }
       }
       stage ('Build Docker Image'){
         steps {
           sh '''
           cd ${WORKSPACE}
-          docker build -t gcr.io/fleet-impact-392712/helloworld --file=Dockerfile ${WORKSPACE}
+          docker build -t gcr.io/rare-style-405106/helloworld --file=Dockerfile ${WORKSPACE}
           '''
         }
       }
       stage ('Publish Docker Image'){
         steps {
           sh '''
-          docker push gcr.io/fleet-impact-392712/helloworld
+          docker push gcr.io/rare-style-405106/helloworld
           '''
         }
       }
       stage ('Deploy to kubernetes'){
         steps{
           script {
-            sh "kubectl config use-context gke_fleet-impact-392712_us-central1-c_k8s-cluster"
+            sh "kubectl config use-context gke_rare-style-405106_us-central1-c_cluster-1"
             sh "cd ${WORKSPACE}"
             sh "kubectl delete -f '${WORKSPACE}'/kube/deployment.yaml"
             sh "kubectl apply -f '${WORKSPACE}'/kube/deployment.yaml"
