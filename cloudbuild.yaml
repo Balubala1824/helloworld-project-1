@@ -1,10 +1,10 @@
 steps:
 - name: 'gcr.io/cloud-builders/git'
   id: 'Clone'
-  args: ['clone', 'https://github.com/chinni4321/game-of-life.git']
+  args: ['clone', 'https://github.com/Balubala1824/helloworld-project-1.git']
 - name: 'gcr.io/cloud-builders/mvn:3.3.9-jdk-8'
   args: ['install']
-  dir: 'game-of-life/gameoflife-build/'
+  dir: 'game-of-life/helloworld-build/'
   # build the container image
 - name: "gcr.io/cloud-builders/docker"
   args: ["build", "-t", "gcr.io/rare-style-405106/helloworld:v1", "."]
